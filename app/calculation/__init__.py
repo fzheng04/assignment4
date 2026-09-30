@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-
+from app.operations import Operations
 
 class Calculation(ABC):
     def __init__(self, a: float, b: float):
@@ -27,3 +27,33 @@ class CalculationFactory:
 
         calculation_class = cls._calculations[operation]
         return calculation_class(a, b)
+
+
+@CalculationFactory.register_calculation("add")
+class AddCalculation(Calculation):
+    def execute(self) -> float:
+        return Operations.addition(self.a, self.b)
+
+
+@CalculationFactory.register_calculation("subtract")
+class SubtractCalculation(Calculation):
+    def execute(self) -> float:
+        return Operations.subtraction(self.a, self.b)
+
+
+@CalculationFactory.register_calculation("multiply")
+class MultiplyCalculation(Calculation):
+    def execute(self) -> float:
+        return Operations.multiplication(self.a, self.b)
+
+
+@CalculationFactory.register_calculation("divide")
+class DivideCalculation(Calculation):
+    def execute(self) -> float:
+        return Operations.division(self.a, self.b)
+
+
+@CalculationFactory.register_calculation("power")
+class PowerCalculation(Calculation):
+    def execute(self) -> float:
+        return Operations.power(self.a, self.b)
