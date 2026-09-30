@@ -283,3 +283,47 @@ The calculator supports addition, subtraction, multiplication, and division thro
 * Division
 * Error handling for invalid input
 * Error handling for di
+
+
+
+
+# Professional Calculator Command-Line Application
+
+## Overview
+
+This project is a professional command-line calculator built in Python. It uses object-oriented programming principles, modular design, automated testing, and continuous integration.
+
+The calculator supports basic arithmetic operations, calculation history, special REPL commands, and a factory-based design for creating calculation objects.
+
+## Features
+
+The calculator supports the following operations:
+
+- Addition
+- Subtraction
+- Multiplication
+- Division
+- Power
+
+It also supports these special commands:
+
+- `help` - Displays available operations and commands
+- `history` - Displays calculations performed during the current session
+- `exit` - Exits the calculator
+
+## Project Structure
+
+```text
+app/
+├── calculation/
+│   └── __init__.py
+├── calculator/
+│   └── __init__.py
+├── operations/
+│   └── __init__.py
+tests/
+├── test_calculation.py
+├── test_calculator.py
+├── test_operations.py
+.github/
+└── workflows/
