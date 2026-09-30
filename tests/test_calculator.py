@@ -1,7 +1,7 @@
 """ tests/test_calculator.py """
 import sys
 from io import StringIO
-from app.calculator import calculator
+from app.calculator import calculator, Calculator
 
 
 # Helper function to capture print statements
@@ -73,3 +73,46 @@ def test_division_by_zero(monkeypatch):
     inputs = ["divide 5 0", "exit"]
     output = run_calculator_with_input(monkeypatch, inputs)
     assert "Division by zero is not allowed" in output
+
+
+
+def test_calculator_uses_factory():
+    Calculator.clear_history()
+
+    result = Calculator.calculate("add", 2, 3)
+
+    assert result == 5
+
+
+def test_calculator_history():
+    Calculator.clear_history()
+
+    Calculator.calculate("add", 2, 3)
+    Calculator.calculate("power", 2, 4)
+
+    history = Calculator.get_history()
+
+    assert len(history) == 2
+    assert history[0]["result"] == 5
+    assert history[1]["operation"] == "power"
+    assert history[1]["result"] == 16
+
+
+def test_clear_history():
+    Calculator.clear_history()
+
+    Calculator.calculate("multiply", 3, 4)
+
+    assert len(Calculator.get_history()) == 1
+
+    Calculator.clear_history()
+
+    assert Calculator.get_history() == []
+
+
+def test_power(monkeypatch):
+    """Test power operation in REPL."""
+    inputs = ["power 2 3", "exit"]
+    output = run_calculator_with_input(monkeypatch, inputs)
+
+    assert "Result: 8.0" in output
