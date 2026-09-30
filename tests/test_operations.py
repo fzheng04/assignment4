@@ -60,3 +60,16 @@ def test_division(a, b, expected):
 def test_division_by_zero():
     with pytest.raises(ValueError, match="Division by zero is not allowed."):
         Operations.division(10, 0)
+
+@pytest.mark.parametrize(
+    "a, b, expected",
+    [
+        (2, 3, 8),
+        (5, 2, 25),
+        (10, 0, 1),
+        (4, 0.5, 2),
+        (-2, 3, -8),
+    ]
+)
+def test_power(a, b, expected):
+    assert Operations.power(a, b) == expected
