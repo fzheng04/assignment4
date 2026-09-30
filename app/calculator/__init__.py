@@ -32,17 +32,33 @@ class Calculator:
 def calculator():
     """REPL calculator."""
 
-    print("Welcome to the calculator REPL! Type 'exit' to quit")
+    print("Welcome to the calculator REPL!")
+    print("Type 'help' for available commands.")
 
     while True:
-        user_input = input(
-            "Enter an operation (add, subtract, multiply, divide, power) "
-            "and two numbers, or 'exit' to quit: "
-        )
+        user_input = input("Enter command: ").strip()
 
         if user_input.lower() == "exit":
             print("Exiting calculator...")
             break
+
+        if user_input.lower() == "help":
+            print("Available operations: add, subtract, multiply, divide, power")
+            print("Special commands: help, history, exit")
+            continue
+
+        if user_input.lower() == "history":
+            history = Calculator.get_history()
+
+            if not history:
+                print("No calculations in history.")
+            else:
+                for index, item in enumerate(history, start=1):
+                    print(
+                        f"{index}. {item['operation']} "
+                        f"{item['a']} {item['b']} = {item['result']}"
+                    )
+            continue
 
         try:
             operation, num1, num2 = user_input.split()

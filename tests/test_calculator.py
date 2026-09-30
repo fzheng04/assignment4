@@ -116,3 +116,37 @@ def test_power(monkeypatch):
     output = run_calculator_with_input(monkeypatch, inputs)
 
     assert "Result: 8.0" in output
+
+
+def test_help_command(monkeypatch):
+    output = run_calculator_with_input(monkeypatch, ["help", "exit"])
+
+    assert "Available operations" in output
+    assert "Special commands" in output
+
+
+def test_empty_history(monkeypatch):
+    Calculator.clear_history()
+
+    output = run_calculator_with_input(monkeypatch, ["history", "exit"])
+
+    assert "No calculations in history." in output
+
+
+def test_history_with_calculation(monkeypatch):
+    Calculator.clear_history()
+    Calculator.calculate("add", 2, 3)
+
+    output = run_calculator_with_input(monkeypatch, ["history", "exit"])
+
+    assert "add" in output
+    assert "5" in output
+
+
+def test_invalid_input(monkeypatch):
+    output = run_calculator_with_input(
+        monkeypatch,
+        ["this is invalid input", "exit"],
+    )
+
+    assert "Invalid input" in output
